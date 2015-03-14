@@ -26,14 +26,13 @@ def upload_file(request):
 
 def upload_status(request):
     if request.method == 'GET':
-        if 'key' in request.GET:
-            key = request.GET['key']
-            data = None
-            while data is None:
-                #data = cache.get(key)
-                data = MemcachedCache.get(key)
-            return HttpResponse(json.dumps(data), content_type="application/json")
+        if request.GET['key']:
+            if cache.get(request.GET['key']):
+                value = cache.get(request.GET['key'])
+                return HttpResponse(json.dumps(value), content_type="application/json")
+            else:
+                return HttpResponse(json.dumps({'error':"No csrf value in cache"}), content_type="application/json")
         else:
-            return HttpResponse(json.dumps({'error':'No parameter "key" in GET request'}), content_type="application/json")
+            return HttpResponse(json.dumps({'error':'No parameter key in GET request'}), content_type="application/json")
     else:
         return HttpResponse(json.dumps({'error':'No GET request'}), content_type="application/json")
