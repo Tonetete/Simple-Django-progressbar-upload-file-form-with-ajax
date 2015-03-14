@@ -46,7 +46,7 @@ And that's it for Django implementation! Easy, huh? Well, one step left for star
 
 ### Implementing AJAX for submit form and notificates progress bar
 
-One problem I found in this part for dynamic requests implementing ajax is that you can submit form and inmediately start to launch requests for notify the progress so as long it will be fine in server side there's no problem but in real world we know it's never like that, we need to know it's something went wrong to notify to user in a production environment, furthermore, we can't notify when a processing file and upload is complete when upload handler finally finish his job through a conventional submit so no matter what, we need to use two types of AJAX, one for send file and another for request current status of upload file.
+One problem I found in this part for dynamic requests implementing ajax is that you can submit form and inmediately start to launch requests for notify the progress so as long as it will be fine in server side there's no problem but in real world we know it's never like that, we need to know it's something went wrong to notify to user in a production environment, furthermore, we can't notify when a processing file and upload is complete when upload handler finally finish his job through a conventional submit so no matter what, we need to use two types of AJAX, one for send file and another for request current status of upload file.
 
 The problem was ajax (from Jquery API) can't handle upload files, at least with **FormData** and Django API processing files then I had to use the **Form Plugin JQuery** to acomplish this task: http://malsup.com/jquery/form/ 
 
