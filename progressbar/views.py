@@ -16,8 +16,6 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            #instance = UploadFile(file=request.FILES['file'])
-            #instance.save()
             form.save()
             return HttpResponse(json.dumps({'message': 'Upload complete!'}))
     else:
