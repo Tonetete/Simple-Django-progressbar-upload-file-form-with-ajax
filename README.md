@@ -133,7 +133,7 @@ function progressWorker(url){
 }
 ```
 
-That makes another Ajax request, for every success request, update progress bar and when it's complete, if percent is always below of 100, call function again until finish it and show a processing file dialog and wait for **Upload Complete!**  for **ajaxSubmit** to update dialog and notify to user:
+That makes another Ajax request, for every success request, update progress bar and when it's complete, if percent is always below of 100, call function again until finish it and show a processing file dialog and wait for **Upload Complete!**  for **ajaxSubmit** to update dialog and notify to user, very important function **sleep** function below, is a good practice of performance make a brief rest between requests in order to no saturate server with petitions:
 
 ```javascript
 // post-submit callback
@@ -164,7 +164,7 @@ function showResponse(responseText, statusText, xhr, $form)  {
 
 ### Apreciations in order to use Django's cache framework in a production environment 
 
-A better practice when you're going to deploy in production is to use **memcached** or the many caches presented in docs: https://docs.djangoproject.com/en/1.7/topics/cache/ some problems I found in deploy where cache was not retrieving any value when receive petitions, the problem was that is a local memory cache current to the process and in a multi-process environment like production would stay messing around and not working properly, for take this present if you try to use this in a production environment, I recommend to use **memcached**, works like a charm, direct to http://memcached.org/downloads for more explanation and after install just add this lines in settings.py et voilà:
+A better practice when you're going to deploy in production is to use **memcached** or the many caches presented in docs: https://docs.djangoproject.com/en/1.7/topics/cache/ some problems I found in production where cache was not retrieving any value when receive petitions, the problem was local memory cache is current to the process and in a multi-process environment like production would stay messing around and not working properly, just take this in mind if you in future try to use this in a production environment, I recommend to use **memcached**, works like a charm, direct to http://memcached.org/downloads for more explanation and after install just add this lines in settings.py et voilà:
 
 ```python
 CACHES = {
