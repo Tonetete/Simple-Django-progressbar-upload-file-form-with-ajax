@@ -70,7 +70,7 @@ function showResponse(responseText, statusText, xhr, $form)  {
     // if the ajaxSubmit method was passed an Options Object with the dataType
     // property set to 'xml' then the first argument to the success callback
     // is the XMLHttpRequest object's responseXML property
-git
+
     // if the ajaxSubmit method was passed an Options Object with the dataType
     // property set to 'json' then the first argument to the success callback
     // is the json data object returned by the server
