@@ -175,5 +175,18 @@ CACHES = {
 }
 ```
 
-### Instructions for installing in development environment
+### Instructions for installing and testing
 
+- Create a new virtualenv and activate:
+
+`virtualenv XXXX --no-site-packages`
+
+- Install requirements from project with:
+
+`pip install -r requirements.txt`
+
+This project uses django-bootstrap for presentation matters.
+
+- Execute `python manage.py syncdb` and then `python manage.py runserver`
+
+- Enjoy it!
