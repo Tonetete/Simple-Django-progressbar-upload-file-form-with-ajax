@@ -1,0 +1,50 @@
+/**
+ * Created by Tone on 8/3/15.
+ */
+
+$("#formUpload").submit(function(ev){
+    var url = "/progressbar/view_status?key="+$("input[name=csrfmiddlewaretoken]").val();
+    //progressWorker(url);
+    //completeUpload(100);
+});
+
+function progressWorker(url){
+    percent = 0;
+    $.ajax({
+        url: url,
+        async: true,
+        dataType: "json",
+        contentType: "application/json",
+        success: function (result) {
+            //console.log("Acumulated: "+result.status);
+            //console.log("Total: "+result.total_size);
+            percent = (result.status/result.total_size) * 100;
+            percent = parseInt(percent, 10);
+            //console.log("Percent: "+percent+"%");
+            $('.progress-bar').css('width', percent+'%').attr('aria-valuenow', percent);
+            $('.progress-bar').html(percent+"%");
+        },
+        complete: function(){
+            sleep(1000);
+            if(percent!=100){
+                progressWorker(url);
+            }
+        }
+    });
+    if(percent==100){
+        completeUpload(percent);
+    }
+}
+
+function completeUpload(percent){
+     $('.progress-bar').css('width', percent+'%').attr('aria-valuenow', percent);
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}

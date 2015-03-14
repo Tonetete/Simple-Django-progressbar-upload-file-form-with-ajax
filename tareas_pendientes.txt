@@ -1,0 +1,9 @@
+
+- Cambiar css del botón de seleccionar archivo
+
+- Añadir restricción al modelo de máximo tamaño al subir archivo.
+
+
+Posibles actualizaciones:
+
+- Añadir multisubida (mirar proyecto de multisubida de modelform)

@@ -1,0 +1,18 @@
+- Poner campo Field como obligatorio
+
+- Visualizar procesamiento
+
+- Mirar validaciones
+
+- Reiniciar barra de progreso si hacemos una nueva subida sin refrescar la página
+
+- Al hacer la petición post, guardar el formulario entero con sus campos
+
+- Cambiar css del botón de seleccionar archivo
+
+- Cuando acabe la petición de guardar el archivo, mostrar el mensaje de completado!
+
+
+Posibles actualizaciones:
+
+- Añadir multisubida (mirar proyecto de multisubida de modelform)
