@@ -27,17 +27,17 @@ SECRET_KEY = '2d$jn#_(q-25&632k8!#_(4132b^myq0n6c5pf8j@o3sv0u%f*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+"""
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+   }
 }
-
+"""
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = "*"
 
 # Upload folder
 
