@@ -70,7 +70,7 @@ function showResponse(responseText, statusText, xhr, $form)  {
     // if the ajaxSubmit method was passed an Options Object with the dataType
     // property set to 'xml' then the first argument to the success callback
     // is the XMLHttpRequest object's responseXML property
-
+git
     // if the ajaxSubmit method was passed an Options Object with the dataType
     // property set to 'json' then the first argument to the success callback
     // is the json data object returned by the server
@@ -127,7 +127,7 @@ function progressWorker(url){
                 $('.progress-bar').html(percent+"%");
             /* Call sleep function before make a new request in order to prevent much
               request to server. Use it wisely... */
-            sleep(1000);            
+            //sleep(1000);
 	   }
 
         },
