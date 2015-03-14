@@ -1,5 +1,4 @@
 from django.core.files.uploadhandler import FileUploadHandler
-from django.core.cache.backends.memcached import MemcachedCache
 from django.core.cache import cache
 import time
 
@@ -22,10 +21,10 @@ class UploadProgressCachedHandler(FileUploadHandler):
     def handle_raw_input(self, input_data, META, content_length, boundary, encoding=None):
         self.content_length = content_length
         if 'CSRF_COOKIE' in self.request.GET:
-            self.progress_id = self.request.GET['CSRF_COOKIE']
+            self.cache_key = self.request.GET['CSRF_COOKIE']
         elif 'CSRF_COOKIE' in self.request.META:
-            self.progress_id = self.request.META['CSRF_COOKIE']
-        if self.progress_id:
+            self.cache_key = self.request.META['CSRF_COOKIE']
+        if self.cache_key:
             cache.set(self.cache_key, {
                 'totalsize': self.content_length,
                 'uploaded': 0
