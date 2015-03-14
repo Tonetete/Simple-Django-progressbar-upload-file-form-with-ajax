@@ -189,6 +189,6 @@ This project uses django-bootstrap for presentation matters.
 
 - Execute `python manage.py syncdb` and then `python manage.py runserver`
 
-- Paste http://localhost:8000/progressbar/uploadfile url
+- Paste `http://localhost:8000/progressbar/uploadfile` url
 
 - Enjoy it!
