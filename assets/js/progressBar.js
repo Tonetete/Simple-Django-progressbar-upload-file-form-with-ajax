@@ -119,14 +119,17 @@ function progressWorker(url){
         dataType: "json",
         contentType: "application/json",
         success: function (progress) {
-            console.log("Percent: "+percent+"%");
-            percent = (progress.uploaded/progress.totalsize) * 100;
-            percent = parseInt(percent, 10);
-            $('.progress-bar').css('width', percent+'%').attr('aria-valuenow', percent);
-            $('.progress-bar').html(percent+"%");
+            if(progress.uploaded && progress.totalsize){
+            	console.log("Percent: "+percent+"%");
+            	percent = (progress.uploaded/progress.totalsize) * 100;
+            	percent = parseInt(percent, 10);
+                $('.progress-bar').css('width', percent+'%').attr('aria-valuenow', percent);
+                $('.progress-bar').html(percent+"%");
             /* Call sleep function before make a new request in order to prevent much
               request to server. Use it wisely... */
-            //sleep(500);
+            sleep(1000);            
+	   }
+
         },
         complete: function(){
             if(percent<100){
@@ -136,8 +139,14 @@ function progressWorker(url){
                 $(".processing-file").show();
                 $(".processing-file").append('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Processing file, please wait...');
             }
-        }
-
+        },
+	error: function (jqXHR, textStatus, errorThrown) {
+                  if (jqXHR.status == 500) {
+                      alert('Internal error: ' + jqXHR.responseText);
+                  } else {
+                      alert('Unexpected error.');
+                  }
+       }
     });
 }
 
