@@ -1,10 +1,10 @@
 # Simple Django progressbar upload file form with ajax
 
-This is a personal project I want to share with everybody, time ago I was trying to develop a progress bar notification using Django, searching around the web, many solutions I found but for disgraced not much were clarify to me in order to implement this solution for a personal project so now I have the time to venture and this is the result so far.
+This is a personal project I want to share with everybody. Time ago I was trying to develop a progress bar notification using Django, searching around the web, many solutions I found but for disgraced not much were clarify to me in order to implement this solution for a personal project, so now I have the time to venture and this is the result so far.
 
 ### Implementing a notification progress bar using upload handlers and cache
 
-Many solutions for this problem ofted used **upload handlers** and accesing Django's framework cache, an approach for my solution was using this codesnippet: https://djangosnippets.org/snippets/678/ as you can see, for every submit form I set up CSRF token as the id for identify the progress upload, normally place in **META** field or **GET** inside the request header all of this logic are implemented in **handle_raw_input** and for every time django receive a **data chunk**, cache values are updated inside **receive_data_chunk** so easy, no? For more info about upload handlers see docs: https://docs.djangoproject.com/fr/1.5/topics/http/file-uploads/ and don't forget to update **settings.py** with the uploadhandler we use:
+Many solutions for this problem ofted used **upload handlers** and accesing Django's framework cache. An approach for my solution was using this codesnippet: https://djangosnippets.org/snippets/678/ as you can see, for every submit form I set up CSRF token as the id for identify the progress upload, normally place in **META** field or **GET** inside the request header. All of this logic are implemented in **handle_raw_input** and for every time Django receive a **data chunk**, cache values are updated inside **receive_data_chunk**. For more info about upload handlers see docs: https://docs.djangoproject.com/fr/1.5/topics/http/file-uploads/ and don't forget to update **settings.py** with the uploadhandler we use:
 
 ```python
 from django.conf import global_settings
@@ -12,7 +12,7 @@ FILE_UPLOAD_HANDLERS = ('progressbar.uploadfilehandler.UploadProgressCachedHandl
 + global_settings.FILE_UPLOAD_HANDLERS`
 ```
 
-Now in **views.py** we have to define the method required for make requests in javascript for check in intervals of time the current values of upload file so far:
+Now in **views.py** we have to define the method required for make requests in javascript for checking intervals of time current values of upload file so far:
 ```python
 def upload_status(request):
     if request.method == 'GET':
@@ -46,7 +46,7 @@ And that's it for Django implementation! Easy, huh? Well, one step left for star
 
 ### Implementing AJAX for submit form and notificates progress bar
 
-One problem I found in this part for dynamic requests implementing ajax is that you can submit form and inmediately start to launch requests for notify the progress so as long as it will be fine in server side there's no problem but in real world we know it's never like that, we need to know it's something went wrong to notify to user in a production environment, furthermore, we can't notify when a processing file and upload is complete when upload handler finally finish his job through a conventional submit so no matter what, we need to use two types of AJAX, one for send file and another for request current status of upload file.
+One problem I found in this part for dynamic requests implementing ajax is, that you can submit form and inmediately start to launch requests for notify the progress so as long as it will be fine in server side there's no problem but in real world we know it's never like that. We need to know it's something went wrong to notify to user in a production environment, furthermore, we can't notify when a processing file and an upload is complete when upload handler finally finish his job through a conventional submit. So, no matter what, we need to use two types of AJAX, one for send file and another for request current status of upload file.
 
 The problem was ajax (from Jquery API) can't handle upload files, at least with **FormData** and Django API processing files then I had to use the **Form Plugin JQuery** to acomplish this task: http://malsup.com/jquery/form/ 
 
@@ -86,7 +86,7 @@ $(document).ready(function() {
 });
 ```
 
-So, we make **Form JQuery plugin** take care of submit form setting options and calling **ajaxSubmit**, then we call **progressWorker** passing the url and csrf as parameter to check status continuously:
+So, we make **Form JQuery plugin** take care of submit form setting options and calling **ajaxSubmit**, then we call **progressWorker** passing the url and csrf as parameter to check the status upload file continuously:
 
 
 ```javascript
@@ -133,7 +133,7 @@ function progressWorker(url){
 }
 ```
 
-That makes another Ajax request, for every success request, update progress bar and when it's complete, if percent is always below of 100, call function again until finish it and show a processing file dialog and wait for **Upload Complete!**  for **ajaxSubmit** to update dialog and notify to user, very important function **sleep** function below, is a good practice of performance make a brief rest between requests in order to no saturate server with petitions:
+That makes another Ajax request, for every success request, update progress bar and when it's complete, if percent is always below of 100%, call function again until finish it and show a processing file dialog and wait for **Upload Complete!**  for **ajaxSubmit** update dialog and notify to user. It's very important the **sleep** function below, is a good practice of performance make a brief rest between requests in order to no saturate server with petitions:
 
 ```javascript
 // post-submit callback
@@ -164,7 +164,7 @@ function showResponse(responseText, statusText, xhr, $form)  {
 
 ### Apreciations in order to use Django's cache framework in a production environment 
 
-A better practice when you're going to deploy in production is to use **memcached** or the many caches presented in docs: https://docs.djangoproject.com/en/1.7/topics/cache/ some problems I found in production where cache was not retrieving any value when receive petitions, the problem was local memory cache is current to the process and in a multi-process environment like production would stay messing around and not working properly, just take this in mind if you in future try to use this in a production environment, I recommend to use **memcached**, works like a charm, direct to http://memcached.org/downloads for more explanation and after install just add this lines in settings.py et voilà:
+A better practice when you're going to deploy in production is to use **memcached** or the many caches presented in docs: https://docs.djangoproject.com/en/1.7/topics/cache/ some problems I found in production are that cache was not retrieving any value when receive petitions, the problem was local memory cache is current to the process and in a multi-process environment like production would stay messing around and not working properly. Just take this in mind if you in future try to use this in a production environment, I recommend to use **memcached**, works like a charm, direct to http://memcached.org/downloads for more explanation and after install just add this lines in settings.py to make it works:
 
 ```python
 CACHES = {
